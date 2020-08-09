@@ -7,6 +7,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -18,22 +19,35 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.omg.CORBA.SystemException;
 
 public class ClientProxy  {
 
   private Minecraft mc = Minecraft.getMinecraft();
   private Entity pointedEntity;
+  private EntityPlayer player;
 
 
-  //エンティティがいる時の処理
+  //エンティティがクロスヘアいる時の処理
   public void setEntityInCrosshairs() {
     RayTraceResult r = getMouseOver(1.0f);
     if (r != null && RayTraceResult.Type.ENTITY.equals(r.typeOfHit)) {
       if (r.entityHit instanceof EntityLivingBase) {
 
-        System.out.println("aaaawewaea2" + r.entityHit.getName());
+        System.out.println("aaaaw  " + r.entityHit.getName());
+        try{
+          player = (EntityPlayer) r.entityHit;
+        }catch (Exception e){
+          player = null;
+        }
+        return;
       }
     }
+    player = null;
+  }
+
+  public EntityPlayer GetEntityPlayer(){
+    return  player;
   }
 
   @Nullable

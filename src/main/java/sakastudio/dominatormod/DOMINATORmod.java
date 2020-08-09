@@ -1,7 +1,12 @@
 package sakastudio.dominatormod;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,7 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
         name = DOMINATORmod.MOD_NAME,
         version = DOMINATORmod.VERSION
 )
-public class DOMINATORmod {
+public class DOMINATORmod{
 
     public static final String MOD_ID = "dominatormod";
     public static final String MOD_NAME = "DOMINATORmod";
@@ -46,6 +51,7 @@ public class DOMINATORmod {
         }
         ClientProxy.Inctance().setEntityInCrosshairs();
     }
+
 
     /**
      * This is the instance of your mod as created by Forge. It will never be null.
