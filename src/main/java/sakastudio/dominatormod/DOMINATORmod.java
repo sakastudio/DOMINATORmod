@@ -2,6 +2,7 @@ package sakastudio.dominatormod;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
@@ -35,6 +36,15 @@ public class DOMINATORmod {
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(ALUMINIUM);
+    }
+
+    //画面内にエンティティがいる時のイベント
+    @SubscribeEvent
+    public void displayEntityStatus(RenderGameOverlayEvent.Pre event) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.CHAT) {
+            return;
+        }
+        ClientProxy.Inctance().setEntityInCrosshairs();
     }
 
     /**

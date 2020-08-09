@@ -54,13 +54,13 @@ public class GuiEntityStatus extends Gui {
     barDisplay.setPosition(25, 200);
   }
 
+  //実際に描写する
   @SubscribeEvent
   public void drawHealthBar(RenderGameOverlayEvent.Pre event) {
     if (!showHealthBar || event.getType() != ElementType.CHAT) {
       return;
     }
 
-    System.out.println("aaaa");
     updateGuiAge();
     updatePositions();
     drawSkin();
