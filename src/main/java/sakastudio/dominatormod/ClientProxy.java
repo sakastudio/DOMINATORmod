@@ -34,7 +34,6 @@ public class ClientProxy  {
     if (r != null && RayTraceResult.Type.ENTITY.equals(r.typeOfHit)) {
       if (r.entityHit instanceof EntityLivingBase) {
 
-        System.out.println("aaaaw  " + r.entityHit.getName());
         try{
           player = (EntityPlayer) r.entityHit;
         }catch (Exception e){
