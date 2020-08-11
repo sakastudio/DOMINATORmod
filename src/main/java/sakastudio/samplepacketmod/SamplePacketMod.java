@@ -1,9 +1,13 @@
 package sakastudio.samplepacketmod;
 
 
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
@@ -15,6 +19,8 @@ public class SamplePacketMod {
     public void preInit(FMLPreInitializationEvent event)
     {
         PacketHandler.registerMessages("samplepacketmod");
+        MinecraftForge.EVENT_BUS.register(new InputHandler());
+        //KeyBindings.init();
     }
 
     @EventHandler
