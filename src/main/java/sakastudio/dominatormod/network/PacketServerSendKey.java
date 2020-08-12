@@ -27,20 +27,12 @@ public class PacketServerSendKey implements IMessage {
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        // Encoding the position as a long is more efficient
-        //blockPos = BlockPos.fromLong(buf.readLong());
 
         EntityID = buf.readInt();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        // Encoding the position as a long is more efficient
-
-        //PacketBuffer b = (PacketBuffer) buf;
-        //b.writeString(entityPlayer.toString());
-        //buf.writeByte(b.arrayOffset());
-
         buf.writeInt(EntityID);
     }
 

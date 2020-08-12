@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import org.lwjgl.Sys;
-import sakastudio.dominatormod.ItemAluminium;
+import sakastudio.dominatormod.ItemDOMINATOR;
 
 public class PacketClientClash implements IMessage {
 

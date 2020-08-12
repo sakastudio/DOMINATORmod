@@ -1,12 +1,7 @@
 package sakastudio.dominatormod;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -30,7 +25,7 @@ public class DOMINATORmod{
     public static final String MOD_NAME = "DOMINATORmod";
     public static final String VERSION = "1.0.0";
 
-    public static final Item ALUMINIUM = new ItemAluminium();
+    public static final Item DOMINATOR = new ItemDOMINATOR();
 
     @Mod.EventHandler
     //この関数でMODファイル自体をイベントの発火先にする。
@@ -42,7 +37,7 @@ public class DOMINATORmod{
     //アイテムを登録するイベント。旧preinitのタイミングで発火する。
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(ALUMINIUM);
+        event.getRegistry().register(DOMINATOR);
     }
 
     //画面内にエンティティがいる時のイベント

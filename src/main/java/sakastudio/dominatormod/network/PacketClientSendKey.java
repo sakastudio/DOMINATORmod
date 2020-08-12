@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import sakastudio.dominatormod.ItemAluminium;
+import sakastudio.dominatormod.ItemDOMINATOR;
 
 public class PacketClientSendKey implements IMessage {
 
@@ -36,7 +36,7 @@ public class PacketClientSendKey implements IMessage {
         }
 
         private void handle(PacketClientSendKey message, MessageContext ctx) {
-            ItemAluminium.CrimeCoefficient = message.CrimeCoefficient;
+            ItemDOMINATOR.CrimeCoefficient = message.CrimeCoefficient;
         }
     }
 }

@@ -17,19 +17,21 @@ import sakastudio.dominatormod.network.*;
 
 import java.awt.*;
 
-public class ItemAluminium extends Item {
+public class ItemDOMINATOR extends Item {
 
     boolean isCechking = true;
     public static int CrimeCoefficient;
     String cachePlayer;
 
 
-    public ItemAluminium() {
+    public ItemDOMINATOR() {
         super();
         //レジストリに保存する名称を登録する。大文字禁止。
-        this.setRegistryName(DOMINATORmod.MOD_ID, "aluminium");
+        this.setRegistryName(DOMINATORmod.MOD_ID, "dominator");
         //クリエイティブタブを設定する。
         this.setCreativeTab(CreativeTabs.MATERIALS);
+        //翻訳名を登録する。大文字非推奨。
+        this.setTranslationKey("DOMINATOR");
     }
 
     @Override
