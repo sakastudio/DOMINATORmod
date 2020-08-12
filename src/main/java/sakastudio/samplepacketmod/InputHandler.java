@@ -7,7 +7,7 @@ public class InputHandler {
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        PacketHandler.INSTANCE.sendToServer(new PacketSendKey());
+        //PacketHandler.INSTANCE.sendToServer(new PacketSendKey());
         //if (KeyBindings.tutorialKey.isPressed()) {
             // Someone pressed our tutorialKey. We send a message
         //}

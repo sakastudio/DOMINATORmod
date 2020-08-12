@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import sakastudio.dominatormod.network.PacketHandler;
 
 @Mod(
         modid = DOMINATORmod.MOD_ID,
@@ -35,6 +36,7 @@ public class DOMINATORmod{
     //この関数でMODファイル自体をイベントの発火先にする。
     public void construct(FMLConstructionEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
+        PacketHandler.registerMessages("dominatormod");
     }
 
     //アイテムを登録するイベント。旧preinitのタイミングで発火する。
