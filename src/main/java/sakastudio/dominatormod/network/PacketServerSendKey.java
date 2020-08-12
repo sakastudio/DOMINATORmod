@@ -51,27 +51,12 @@ public class PacketServerSendKey implements IMessage {
     public static class Handler implements IMessageHandler<PacketServerSendKey, IMessage> {
         @Override
         public IMessage onMessage(PacketServerSendKey message, MessageContext ctx) {
-            /*Always use a construct like this to actually handle your message. This ensures that
-            your 'handle' code is run on the main Minecraft thread. 'onMessage' itself
-            is called on the networking thread so it is not safe to do a lot of things
-            here.*/
-            //FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
-            System.out.println("server onMessage");
-
-            //MinecraftServer server = Minecraft.getMinecraft().getIntegratedServer().getServer();
-            //List<EntityPlayerMP> list = server.getPlayerList().getPlayers();
-            //System.out.println(list.get(0).getName());
-            //PacketHandler.INSTANCE.sendTo(new PacketClientSendKey(),list.get(0));
-            //return new PacketClientSendKey();
-
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
 
             return null;
         }
 
         private void handle(PacketServerSendKey message, MessageContext ctx) {
-            // This code is run on the server side. So you can do server-side calculations here
-            System.out.println("server handle");
 
             //返信用プレイヤーエンティティ
             EntityPlayerMP playerEntity = ctx.getServerHandler().player;

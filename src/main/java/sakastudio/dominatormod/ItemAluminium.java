@@ -15,7 +15,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import sakastudio.dominatormod.network.PacketHandler;
 import sakastudio.dominatormod.network.PacketServerSendKey;
 
+import java.awt.*;
+
 public class ItemAluminium extends Item {
+
+    boolean isCechking = true;
+    public static int CrimeCoefficient;
+    String cachePlayer;
+
 
     public ItemAluminium() {
         super();
@@ -30,11 +37,25 @@ public class ItemAluminium extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         EntityPlayer p = ClientProxy.Inctance().GetEntityPlayer();
+
         if(p != null){
-            System.out.println("Item Right Click bbbb");
-            PacketHandler.INSTANCE.sendToServer(new PacketServerSendKey(p.getEntityId()));
+            if(isCechking){
+                PacketHandler.INSTANCE.sendToServer(new PacketServerSendKey(p.getEntityId()));
+                cachePlayer = p.getName();
+                isCechking = false;
+            }else if(!isCechking && cachePlayer.equals(p.getName())){
+                if(CrimeCoefficient < 100){
+                    //何もしない
+
+                }else if(CrimeCoefficient < 300){
+                    //パラライザー
+                }else{
+                    //エリミネーター
+                }
+                isCechking = true;
+            }
         }else {
-            System.out.println("Item Right Click aaa");
+            isCechking = true;
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }

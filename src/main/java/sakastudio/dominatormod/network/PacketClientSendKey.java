@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import sakastudio.dominatormod.ItemAluminium;
 
 public class PacketClientSendKey implements IMessage {
 
@@ -31,13 +32,12 @@ public class PacketClientSendKey implements IMessage {
         @Override
         public IMessage onMessage(PacketClientSendKey message, MessageContext ctx) {
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
-            System.out.println("client onMessage");
             return null;
         }
 
         private void handle(PacketClientSendKey message, MessageContext ctx) {
-            System.out.println("Hanzai" + message.CrimeCoefficient);
-            System.out.println("client handle");
+            System.out.println("Hanzai  " + message.CrimeCoefficient);
+            ItemAluminium.CrimeCoefficient = message.CrimeCoefficient;
         }
     }
 }

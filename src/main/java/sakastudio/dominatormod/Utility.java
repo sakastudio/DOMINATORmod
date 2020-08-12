@@ -24,7 +24,7 @@ public class Utility {
             num += ChcekItemCrimeCoefficient(itemStack);
         }
 
-        return  num;
+        return num;
     }
 
     static int ChcekItemCrimeCoefficient(ItemStack item){
