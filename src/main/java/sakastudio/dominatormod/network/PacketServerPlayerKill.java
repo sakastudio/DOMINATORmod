@@ -1,7 +1,14 @@
 package sakastudio.dominatormod.network;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.InventoryEnderChest;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -61,9 +68,19 @@ public class PacketServerPlayerKill implements IMessage {
             for (EntityPlayerMP item: list) {
                 //ターゲットのプレイヤーである
                 if(message.EntityID == item.getEntityId()){
-                    //そのプレイヤーのインベントリをみて犯罪係数を確定
+                    //そのプレイヤーをキル
                     item.onKillCommand();
+                    InventoryEnderChest ender = item.getInventoryEnderChest();
+                    //エンダーチェストの中身をドロップ
+                    for (int i = 0;i<ender.getSizeInventory();i++){
+                        EntityItem itemEntity = new EntityItem(item.world,item.posX,item.posY + 1,item.posZ,ender.getStackInSlot(i));
+                        item.world.spawnEntity(itemEntity);
+                        ender.setInventorySlotContents(i,new ItemStack(new Block(Material.AIR)));
+                    }
+
+
                     if(message.isClash){
+                        //相手プレイヤーをクラッシュ
                         PacketHandler.INSTANCE.sendTo(new PacketClientClash(),item);
                     }
                     break;
