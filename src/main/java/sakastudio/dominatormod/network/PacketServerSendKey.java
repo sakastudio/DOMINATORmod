@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.main.GameConfiguration;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import sakastudio.dominatormod.Utility;
 
 import java.util.List;
 
@@ -76,24 +78,19 @@ public class PacketServerSendKey implements IMessage {
 
             //プレイヤーリストの取得
             List<EntityPlayerMP> list = playerEntity.getServer().getPlayerList().getPlayers();
-            NonNullList<ItemStack> inv;
+            int num = 0;
+
             //エンティティIDからターゲットエンティティを取得
             for (EntityPlayerMP item: list) {
+                //ターゲットのプレイヤーである
                 if(message.EntityID == item.getEntityId()){
-                    System.out.println(item.getName());
-                    inv = item.inventory.mainInventory;
-                    for(ItemStack itemStack:inv){
-                        System.out.println(itemStack.getItem().getRegistryName());
-                    }
+                    //そのプレイヤーのインベントリをみて犯罪係数を確定
+                    num = Utility.GetCrimeCoefficient(item);
                     break;
                 }
             }
 
-            //Minecraft.getMinecraft();
-            //MinecraftServer server = Minecraft.getMinecraft().getIntegratedServer().getServer();
-            //List<EntityPlayerMP> list = server.getPlayerList().getPlayers();
-
-            PacketHandler.INSTANCE.sendTo(new PacketClientSendKey(),playerEntity);
+            PacketHandler.INSTANCE.sendTo(new PacketClientSendKey(num),playerEntity);
         }
     }
 }
