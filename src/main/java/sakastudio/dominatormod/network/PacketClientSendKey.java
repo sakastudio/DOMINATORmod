@@ -36,7 +36,6 @@ public class PacketClientSendKey implements IMessage {
         }
 
         private void handle(PacketClientSendKey message, MessageContext ctx) {
-            System.out.println("Hanzai  " + message.CrimeCoefficient);
             ItemAluminium.CrimeCoefficient = message.CrimeCoefficient;
         }
     }

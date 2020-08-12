@@ -25,5 +25,6 @@ public class PacketHandler {
         // Register messages which are sent from the client to the server here:
         INSTANCE.registerMessage(PacketServerSendKey.Handler.class, PacketServerSendKey.class, nextID(), Side.SERVER);
         INSTANCE.registerMessage(PacketClientSendKey.Handler.class, PacketClientSendKey.class, nextID(), Side.CLIENT);
+        INSTANCE.registerMessage(PacketServerPlayerKill.Handler.class, PacketServerPlayerKill.class, nextID(), Side.SERVER);
     }
 }

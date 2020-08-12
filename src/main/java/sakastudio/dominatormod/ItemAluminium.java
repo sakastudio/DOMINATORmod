@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import sakastudio.dominatormod.network.PacketHandler;
+import sakastudio.dominatormod.network.PacketServerPlayerKill;
 import sakastudio.dominatormod.network.PacketServerSendKey;
 
 import java.awt.*;
@@ -49,8 +50,10 @@ public class ItemAluminium extends Item {
 
                 }else if(CrimeCoefficient < 300){
                     //パラライザー
+                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId()));
                 }else{
                     //エリミネーター
+                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId()));
                 }
                 isCechking = true;
             }
