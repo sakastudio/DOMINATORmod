@@ -74,7 +74,6 @@ public class PacketServerSendKey implements IMessage {
                     break;
                 }
             }
-
             PacketHandler.INSTANCE.sendTo(new PacketClientSendKey(num),playerEntity);
         }
     }

@@ -26,5 +26,6 @@ public class PacketHandler {
         INSTANCE.registerMessage(PacketServerSendKey.Handler.class, PacketServerSendKey.class, nextID(), Side.SERVER);
         INSTANCE.registerMessage(PacketClientSendKey.Handler.class, PacketClientSendKey.class, nextID(), Side.CLIENT);
         INSTANCE.registerMessage(PacketServerPlayerKill.Handler.class, PacketServerPlayerKill.class, nextID(), Side.SERVER);
+        INSTANCE.registerMessage(PacketClientClash.Handler.class, PacketClientClash.class, nextID(), Side.CLIENT);
     }
 }

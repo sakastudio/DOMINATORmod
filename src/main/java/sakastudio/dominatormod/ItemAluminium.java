@@ -3,6 +3,7 @@ package sakastudio.dominatormod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMapBase;
 import net.minecraft.item.ItemStack;
@@ -12,9 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import sakastudio.dominatormod.network.PacketHandler;
-import sakastudio.dominatormod.network.PacketServerPlayerKill;
-import sakastudio.dominatormod.network.PacketServerSendKey;
+import sakastudio.dominatormod.network.*;
 
 import java.awt.*;
 
@@ -50,10 +49,10 @@ public class ItemAluminium extends Item {
 
                 }else if(CrimeCoefficient < 300){
                     //パラライザー
-                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId()));
+                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),false));
                 }else{
                     //エリミネーター
-                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId()));
+                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
                 }
                 isCechking = true;
             }

@@ -12,6 +12,7 @@ import java.util.List;
 
 public class PacketServerPlayerKill implements IMessage {
     public int EntityID;
+    public boolean isClash;
 
     public PacketServerPlayerKill() {
     }
@@ -22,6 +23,7 @@ public class PacketServerPlayerKill implements IMessage {
         //blockPos = BlockPos.fromLong(buf.readLong());
 
         EntityID = buf.readInt();
+        isClash = buf.readBoolean();
     }
 
     @Override
@@ -33,9 +35,11 @@ public class PacketServerPlayerKill implements IMessage {
         //buf.writeByte(b.arrayOffset());
 
         buf.writeInt(EntityID);
+        buf.writeBoolean(isClash);
     }
 
-    public PacketServerPlayerKill(int id) {
+    public PacketServerPlayerKill(int id,boolean clash) {
+        isClash = clash;
         EntityID = id;
     }
 
@@ -59,6 +63,9 @@ public class PacketServerPlayerKill implements IMessage {
                 if(message.EntityID == item.getEntityId()){
                     //そのプレイヤーのインベントリをみて犯罪係数を確定
                     item.onKillCommand();
+                    if(message.isClash){
+                        PacketHandler.INSTANCE.sendTo(new PacketClientClash(),item);
+                    }
                     break;
                 }
             }
