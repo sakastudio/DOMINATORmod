@@ -2,11 +2,14 @@ package com.sakastudio.dominatormod;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
@@ -32,6 +35,9 @@ public class DOMINATORmod{
     public static final String VERSION = "1.0.0";
 
     public static final Item DOMINATOR = new ItemDOMINATOR();
+    public static final SoundEvent Over100 =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "over100"));
+    public static final SoundEvent Over300 =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "over300"));
+    public static final SoundEvent Under100 =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "under100"));
 
     @Mod.EventHandler
     //この関数でMODファイル自体をイベントの発火先にする。
@@ -49,7 +55,8 @@ public class DOMINATORmod{
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event) {
-        ModelLoader.setCustomModelResourceLocation(DOMINATOR, 0, new ModelResourceLocation(new ResourceLocation(MOD_ID, "dominator"), "inventory"));
+        OBJLoader.INSTANCE.addDomain(MOD_ID);
+        ModelLoader.setCustomModelResourceLocation(DOMINATOR, 0, new ModelResourceLocation(new ResourceLocation(MOD_ID, "dominator.obj"), "inventory"));
     }
 
     //画面内にエンティティがいる時のイベント

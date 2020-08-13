@@ -23,6 +23,11 @@ public class Utility {
         for(ItemStack itemStack:inv){
             num += ChcekItemCrimeCoefficient(itemStack);
         }
+        //メインインベトリをチェック
+        NonNullList<ItemStack> offhand = p.inventory.offHandInventory;
+        for(ItemStack itemStack:offhand){
+            num += ChcekItemCrimeCoefficient(itemStack);
+        }
 
         return num;
     }

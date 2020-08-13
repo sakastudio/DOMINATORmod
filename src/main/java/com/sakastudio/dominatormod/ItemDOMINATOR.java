@@ -1,16 +1,20 @@
 package com.sakastudio.dominatormod;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMapBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import com.sakastudio.dominatormod.network.*;
@@ -48,13 +52,15 @@ public class ItemDOMINATOR extends Item {
             }else if(!isCechking && cachePlayer.equals(p.getName())){
                 if(CrimeCoefficient < 100){
                     //何もしない
-
+                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Under100, SoundCategory.PLAYERS,1f,1f);
                 }else if(CrimeCoefficient < 300){
                     //パラライザー
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),false));
+                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Over100, SoundCategory.PLAYERS,1f,1f);
                 }else{
                     //エリミネーター
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
+                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Over300, SoundCategory.PLAYERS,1f,1f);
                 }
                 isCechking = true;
             }
