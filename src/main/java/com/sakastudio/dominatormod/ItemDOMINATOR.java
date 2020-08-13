@@ -37,7 +37,7 @@ public class ItemDOMINATOR extends Item {
         //レジストリに保存する名称を登録する。大文字禁止。
         this.setRegistryName(DOMINATORmod.MOD_ID, "dominator");
         //クリエイティブタブを設定する。
-        this.setCreativeTab(CreativeTabs.MATERIALS);
+        this.setCreativeTab(CreativeTabs.COMBAT);
         //翻訳名を登録する。大文字非推奨。
         this.setTranslationKey("dominator");
     }
