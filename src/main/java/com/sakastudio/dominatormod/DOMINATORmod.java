@@ -38,6 +38,7 @@ public class DOMINATORmod{
     public static final SoundEvent Over100 =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "over100"));
     public static final SoundEvent Over300 =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "over300"));
     public static final SoundEvent Under100 =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "under100"));
+    public static final SoundEvent Shot =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "shot"));
 
     @Mod.EventHandler
     //この関数でMODファイル自体をイベントの発火先にする。

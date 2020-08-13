@@ -1,5 +1,6 @@
 package com.sakastudio.dominatormod.network;
 
+import com.sakastudio.dominatormod.DOMINATORmod;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -37,6 +38,7 @@ public class PacketClientSendKey implements IMessage {
 
         private void handle(PacketClientSendKey message, MessageContext ctx) {
             ItemDOMINATOR.CrimeCoefficient = message.CrimeCoefficient;
+            ItemDOMINATOR.PlaySoundDominator();
         }
     }
 }

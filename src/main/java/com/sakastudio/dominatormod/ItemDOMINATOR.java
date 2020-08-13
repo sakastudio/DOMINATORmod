@@ -25,9 +25,11 @@ import java.awt.*;
 
 public class ItemDOMINATOR extends Item {
 
-    boolean isCechking = true;
+    static boolean isCechking = true;
     public static int CrimeCoefficient;
-    String cachePlayer;
+    static String cachePlayer;
+    static World cacheWorld;
+    static EntityPlayer cacheEntityPlayer;
 
 
     public ItemDOMINATOR() {
@@ -44,6 +46,8 @@ public class ItemDOMINATOR extends Item {
     @SideOnly(Side.CLIENT)
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
+        cacheWorld = worldIn;
+        cacheEntityPlayer = playerIn;
         EntityPlayer p = ClientProxy.Inctance().GetEntityPlayer();
 
         if(p != null){
@@ -52,18 +56,17 @@ public class ItemDOMINATOR extends Item {
                 cachePlayer = p.getName();
                 isCechking = false;
             }else if(!isCechking && cachePlayer.equals(p.getName())){
-                Minecraft.getMinecraft().player.sendMessage(new TextComponentString("CrimeCoefficient " + CrimeCoefficient));
                 if(CrimeCoefficient < 100){
+                    isCechking = true;
                     //何もしない
-                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Under100, SoundCategory.PLAYERS,1f,1f);
                 }else if(CrimeCoefficient < 300){
                     //パラライザー
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),false));
-                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Over100, SoundCategory.PLAYERS,1f,1f);
+                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }else{
                     //エリミネーター
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
-                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Over300, SoundCategory.PLAYERS,1f,1f);
+                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }
                 isCechking = true;
             }
@@ -71,5 +74,20 @@ public class ItemDOMINATOR extends Item {
             isCechking = true;
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+    }
+
+    public static void PlaySoundDominator(){
+        Minecraft.getMinecraft().player.sendMessage(new TextComponentString("CrimeCoefficient " + CrimeCoefficient));
+        if(CrimeCoefficient < 100){
+            isCechking = true;
+            //何もしない
+            cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Under100, SoundCategory.PLAYERS,1f,1f);
+        }else if(CrimeCoefficient < 300){
+            //パラライザー
+            cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Over100, SoundCategory.PLAYERS,1f,1f);
+        }else{
+            //エリミネーター
+            cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Over300, SoundCategory.PLAYERS,1f,1f);
+        }
     }
 }

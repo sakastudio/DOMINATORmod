@@ -2,5 +2,17 @@
   "over100": {
     "subtitle": "dominatormod.subtitle.over100",
     "sounds": ["dominatormod:over100"]
+  },
+  "over300": {
+    "subtitle": "dominatormod.subtitle.over300",
+    "sounds": ["dominatormod:over300"]
+  },
+  "under100": {
+    "subtitle": "dominatormod.subtitle.under100",
+    "sounds": ["dominatormod:under100"]
+  },
+  "Shot": {
+    "subtitle": "dominatormod.subtitle.shot",
+    "sounds": ["dominatormod:shot"]
   }
 }
