@@ -44,7 +44,7 @@ public class Utility {
         }
         if(item.getDisplayName().equals("Diamond Sword")){
             return item.getCount() * 10;
-        }d
+        }
         return 0;
     }
 }
