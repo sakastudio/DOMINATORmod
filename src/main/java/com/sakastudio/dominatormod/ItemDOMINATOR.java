@@ -13,11 +13,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemMapBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import com.sakastudio.dominatormod.network.*;
+import scala.collection.parallel.ParIterableLike;
 
 import java.awt.*;
 
@@ -50,6 +52,7 @@ public class ItemDOMINATOR extends Item {
                 cachePlayer = p.getName();
                 isCechking = false;
             }else if(!isCechking && cachePlayer.equals(p.getName())){
+                Minecraft.getMinecraft().player.sendMessage(new TextComponentString("CrimeCoefficient " + CrimeCoefficient));
                 if(CrimeCoefficient < 100){
                     //何もしない
                     worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Under100, SoundCategory.PLAYERS,1f,1f);
