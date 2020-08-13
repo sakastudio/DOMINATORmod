@@ -36,9 +36,15 @@ public class Utility {
         if(item.getDisplayName().equals("TNT")){
             return item.getCount() * 10;
         }
-        //Flint and Steel
-        //Wither Skeleton Skull
-        //Diamond Sword
+        if(item.getDisplayName().equals("Flint and Steel")){
+            return item.getCount() * 30;
+        }
+        if(item.getDisplayName().equals("Wither Skeleton Skull")){
+            return item.getCount() * 50;
+        }
+        if(item.getDisplayName().equals("Diamond Sword")){
+            return item.getCount() * 10;
+        }d
         return 0;
     }
 }
