@@ -1,4 +1,4 @@
-package sakastudio.dominatormod.network;
+package com.sakastudio.dominatormod.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import org.lwjgl.Sys;
-import sakastudio.dominatormod.ItemDOMINATOR;
+import com.sakastudio.dominatormod.ItemDOMINATOR;
 
 public class PacketClientClash implements IMessage {
 

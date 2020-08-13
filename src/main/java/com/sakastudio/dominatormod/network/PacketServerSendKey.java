@@ -1,4 +1,4 @@
-package sakastudio.dominatormod.network;
+package com.sakastudio.dominatormod.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
-import sakastudio.dominatormod.Utility;
+import com.sakastudio.dominatormod.Utility;
 
 import java.util.List;
 

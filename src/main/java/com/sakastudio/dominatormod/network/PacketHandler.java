@@ -1,4 +1,4 @@
-package sakastudio.dominatormod.network;
+package com.sakastudio.dominatormod.network;
 
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;

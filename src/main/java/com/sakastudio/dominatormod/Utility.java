@@ -1,4 +1,4 @@
-package sakastudio.dominatormod;
+package com.sakastudio.dominatormod;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryEnderChest;

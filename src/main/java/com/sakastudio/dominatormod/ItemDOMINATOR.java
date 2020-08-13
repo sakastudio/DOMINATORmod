@@ -1,4 +1,4 @@
-package sakastudio.dominatormod;
+package com.sakastudio.dominatormod;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,7 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import sakastudio.dominatormod.network.*;
+import com.sakastudio.dominatormod.network.*;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package sakastudio.dominatormod.network;
+package com.sakastudio.dominatormod.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import sakastudio.dominatormod.Utility;
+import com.sakastudio.dominatormod.Utility;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package sakastudio.dominatormod;
+package com.sakastudio.dominatormod;
 
 import java.util.List;
 import javax.annotation.Nullable;

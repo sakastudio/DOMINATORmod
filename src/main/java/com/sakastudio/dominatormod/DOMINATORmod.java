@@ -1,4 +1,4 @@
-package sakastudio.dominatormod;
+package com.sakastudio.dominatormod;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import sakastudio.dominatormod.network.PacketHandler;
+import com.sakastudio.dominatormod.network.PacketHandler;
 
 @Mod(
         modid = DOMINATORmod.MOD_ID,
