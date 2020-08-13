@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "dominatormod",
+    "name": "DOMINATORmod",
+    "description": "Biwako is the largest lake in Japan.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/Hiroya-W/biwakoMC",
+    "updateUrl": "",
+    "authorList": ["Hiroya_W"],
+    "credits": "",
+    "logoFile": "assets/biwako_mod/logo.png",
+    "screenshots": [],
+    "dependencies": ["mod_MinecraftForge"]
+  }
+]

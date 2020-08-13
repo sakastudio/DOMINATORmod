@@ -31,7 +31,7 @@ public class ItemDOMINATOR extends Item {
         //クリエイティブタブを設定する。
         this.setCreativeTab(CreativeTabs.MATERIALS);
         //翻訳名を登録する。大文字非推奨。
-        this.setTranslationKey("DOMINATOR");
+        this.setTranslationKey("dominator");
     }
 
     @Override
