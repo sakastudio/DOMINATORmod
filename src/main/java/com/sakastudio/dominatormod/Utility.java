@@ -23,7 +23,7 @@ public class Utility {
         for(ItemStack itemStack:inv){
             num += ChcekItemCrimeCoefficient(itemStack);
         }
-        //メインインベトリをチェック
+        //オフハンドをチェック
         NonNullList<ItemStack> offhand = p.inventory.offHandInventory;
         for(ItemStack itemStack:offhand){
             num += ChcekItemCrimeCoefficient(itemStack);
@@ -43,7 +43,13 @@ public class Utility {
             return item.getCount() * 50;
         }
         if(item.getDisplayName().equals("Diamond Sword")){
-            return item.getCount() * 10;
+            return item.getCount() * 20;
+        }
+        if(item.getDisplayName().equals("Bow")){
+            return item.getCount() * 20;
+        }
+        if(item.getDisplayName().equals("Arrow")){
+            return item.getCount() * 4;
         }
         return 0;
     }
