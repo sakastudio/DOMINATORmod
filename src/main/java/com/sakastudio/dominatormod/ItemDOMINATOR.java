@@ -40,6 +40,7 @@ public class ItemDOMINATOR extends Item {
         this.setCreativeTab(CreativeTabs.COMBAT);
         //翻訳名を登録する。大文字非推奨。
         this.setTranslationKey("dominator");
+        this.setMaxStackSize(1);
     }
 
     @Override
@@ -61,10 +62,12 @@ public class ItemDOMINATOR extends Item {
                     //何もしない
                 }else if(CrimeCoefficient < 300){
                     //パラライザー
+                    Minecraft.getMinecraft().getSoundHandler().stopSounds();
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),false));
                     worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }else{
                     //エリミネーター
+                    Minecraft.getMinecraft().getSoundHandler().stopSounds();
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
                     worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }
@@ -77,6 +80,7 @@ public class ItemDOMINATOR extends Item {
     }
 
     public static void PlaySoundDominator(){
+        Minecraft.getMinecraft().getSoundHandler().stopSounds();
         Minecraft.getMinecraft().player.sendMessage(new TextComponentString("CrimeCoefficient " + CrimeCoefficient));
         if(CrimeCoefficient < 100){
             isCechking = true;
