@@ -69,6 +69,7 @@ public class ItemDOMINATOR extends Item {
                     //エリミネーター
                     Minecraft.getMinecraft().getSoundHandler().stopSounds();
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
+                    Minecraft.getMinecraft().player.sendChatMessage("/ban " + p.getName());
                     worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }
                 isCechking = true;
