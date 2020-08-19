@@ -41,11 +41,13 @@ public class DOMINATORmod{
     public static final SoundEvent Shot =new SoundEvent(new ResourceLocation(DOMINATORmod.MOD_ID, "shot"));
 
     @Mod.EventHandler
+    //この関数でMODファイル自体をイベントの発火先にする。
     public void construct(FMLConstructionEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         PacketHandler.registerMessages(MOD_ID);
     }
 
+    //アイテムを登録するイベント。旧preinitのタイミングで発火する。
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(DOMINATOR);
@@ -58,6 +60,7 @@ public class DOMINATORmod{
         ModelLoader.setCustomModelResourceLocation(DOMINATOR, 0, new ModelResourceLocation(new ResourceLocation(MOD_ID, "dominator.obj"), "inventory"));
     }
 
+    //画面内にエンティティがいる時のイベント
     @SubscribeEvent
     public void displayEntityStatus(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.CHAT) {

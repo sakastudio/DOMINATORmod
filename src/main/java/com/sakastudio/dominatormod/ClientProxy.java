@@ -28,6 +28,7 @@ public class ClientProxy  {
   private EntityPlayer player;
 
 
+  //エンティティがクロスヘアいる時の処理
   public void setEntityInCrosshairs() {
     RayTraceResult r = getMouseOver(1.0f);
     if (r != null && RayTraceResult.Type.ENTITY.equals(r.typeOfHit)) {
