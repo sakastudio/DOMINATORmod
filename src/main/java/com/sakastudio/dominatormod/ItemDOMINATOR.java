@@ -34,11 +34,8 @@ public class ItemDOMINATOR extends Item {
 
     public ItemDOMINATOR() {
         super();
-        //レジストリに保存する名称を登録する。大文字禁止。
         this.setRegistryName(DOMINATORmod.MOD_ID, "dominator");
-        //クリエイティブタブを設定する。
         this.setCreativeTab(CreativeTabs.COMBAT);
-        //翻訳名を登録する。大文字非推奨。
         this.setTranslationKey("dominator");
         this.setMaxStackSize(1);
     }
@@ -59,14 +56,11 @@ public class ItemDOMINATOR extends Item {
             }else if(!isCechking && cachePlayer.equals(p.getName())){
                 if(CrimeCoefficient < 100){
                     isCechking = true;
-                    //何もしない
                 }else if(CrimeCoefficient < 300){
-                    //パラライザー
                     Minecraft.getMinecraft().getSoundHandler().stopSounds();
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),false));
                     worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }else{
-                    //エリミネーター
                     Minecraft.getMinecraft().getSoundHandler().stopSounds();
                     PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
                     Minecraft.getMinecraft().player.sendChatMessage("/ban " + p.getName());
@@ -85,13 +79,10 @@ public class ItemDOMINATOR extends Item {
         Minecraft.getMinecraft().player.sendMessage(new TextComponentString("CrimeCoefficient " + CrimeCoefficient));
         if(CrimeCoefficient < 100){
             isCechking = true;
-            //何もしない
             cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Under100, SoundCategory.PLAYERS,1f,1f);
         }else if(CrimeCoefficient < 300){
-            //パラライザー
             cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Over100, SoundCategory.PLAYERS,1f,1f);
         }else{
-            //エリミネーター
             cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Over300, SoundCategory.PLAYERS,1f,1f);
         }
     }

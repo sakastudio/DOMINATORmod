@@ -50,18 +50,13 @@ public class PacketServerSendKey implements IMessage {
 
         private void handle(PacketServerSendKey message, MessageContext ctx) {
 
-            //返信用プレイヤーエンティティ
             EntityPlayerMP playerEntity = ctx.getServerHandler().player;
 
-            //プレイヤーリストの取得
             List<EntityPlayerMP> list = playerEntity.getServer().getPlayerList().getPlayers();
             int num = 0;
 
-            //エンティティIDからターゲットエンティティを取得
             for (EntityPlayerMP item: list) {
-                //ターゲットのプレイヤーである
                 if(message.EntityID == item.getEntityId()){
-                    //そのプレイヤーのインベントリをみて犯罪係数を確定
                     num = Utility.GetCrimeCoefficient(item);
                     break;
                 }

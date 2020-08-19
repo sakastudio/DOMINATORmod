@@ -52,18 +52,13 @@ public class PacketServerPlayerKill implements IMessage {
 
         private void handle(PacketServerPlayerKill message, MessageContext ctx) {
 
-            //プレイヤーリストの取得
             List<EntityPlayerMP> list = ctx.getServerHandler().player.getServer().getPlayerList().getPlayers();
             int num = 0;
 
-            //エンティティIDからターゲットエンティティを取得
             for (EntityPlayerMP item: list) {
-                //ターゲットのプレイヤーである
                 if(message.EntityID == item.getEntityId()){
-                    //そのプレイヤーをキル
                     item.onKillCommand();
                     InventoryEnderChest ender = item.getInventoryEnderChest();
-                    //エンダーチェストの中身をドロップ
                     for (int i = 0;i<ender.getSizeInventory();i++){
                         EntityItem itemEntity = new EntityItem(item.world,item.posX,item.posY + 1,item.posZ,ender.getStackInSlot(i));
                         item.world.spawnEntity(itemEntity);
@@ -72,7 +67,6 @@ public class PacketServerPlayerKill implements IMessage {
 
 
                     if(message.isClash){
-                        //相手プレイヤーをクラッシュ
                         PacketHandler.INSTANCE.sendTo(new PacketClientClash(),item);
                     }
                     break;
