@@ -2,7 +2,6 @@ package com.sakastudio.dominatormod;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -69,6 +68,13 @@ public class DOMINATORmod{
         ClientProxy.Inctance().setEntityInCrosshairs();
     }
 
+    @SubscribeEvent
+    public void drawHealthBar(RenderGameOverlayEvent.Pre event) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.CHAT) {
+            return;
+        }
+        HUD.Instance.Update();
+    }
 
     /**
      * This is the instance of your mod as created by Forge. It will never be null.

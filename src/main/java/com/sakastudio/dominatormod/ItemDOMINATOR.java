@@ -3,6 +3,8 @@ package com.sakastudio.dominatormod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,6 +34,7 @@ public class ItemDOMINATOR extends Item {
     static EntityPlayer cacheEntityPlayer;
 
 
+
     public ItemDOMINATOR() {
         super();
         //レジストリに保存する名称を登録する。大文字禁止。
@@ -50,12 +53,12 @@ public class ItemDOMINATOR extends Item {
         cacheWorld = worldIn;
         cacheEntityPlayer = playerIn;
         EntityPlayer p = ClientProxy.Inctance().GetEntityPlayer();
-
         if(p != null){
             if(isCechking){
                 PacketHandler.INSTANCE.sendToServer(new PacketServerSendKey(p.getEntityId()));
                 cachePlayer = p.getName();
                 isCechking = false;
+                HUD.Instance.draw = !isCechking;
             }else if(!isCechking && cachePlayer.equals(p.getName())){
                 if(CrimeCoefficient < 100){
                     isCechking = true;
@@ -73,16 +76,18 @@ public class ItemDOMINATOR extends Item {
                     worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
                 }
                 isCechking = true;
+                HUD.Instance.draw = !isCechking;
             }
         }else {
             isCechking = true;
+            HUD.Instance.draw = !isCechking;
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 
     public static void PlaySoundDominator(){
         Minecraft.getMinecraft().getSoundHandler().stopSounds();
-        Minecraft.getMinecraft().player.sendMessage(new TextComponentString("CrimeCoefficient " + CrimeCoefficient));
+        Minecraft.getMinecraft().player.sendMessage(new TextComponentString("犯罪係数: " + CrimeCoefficient));
         if(CrimeCoefficient < 100){
             isCechking = true;
             //何もしない

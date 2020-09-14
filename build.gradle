@@ -92,5 +92,6 @@ dependencies {
 sourceSets {
     main { output.resourcesDir = output.classesDir }
 }
+tasks.withType(Jar) {compileJava.options.encoding = 'UTF-8'}
 
 jar.finalizedBy('reobfJar')
