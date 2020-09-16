@@ -1,16 +1,20 @@
 package com.sakastudio.dominatormod.network;
 
+import com.sakastudio.dominatormod.CustomObjects;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -80,14 +84,26 @@ public class PacketServerPlayerKill implements IMessage {
                         PacketHandler.INSTANCE.sendTo(new PacketClientClash(),item);
 
                         //ソースを設定
-                        Random random = new Random();
-                        int r = random.nextInt(6)+1;
-                        d = new DamageSource("BanSibyl"+r).setDamageAllowedInCreativeMode();
+                        String customLog = CustomObjects.Instance.GetCustomBanlog(item.getName());
+                        if(!customLog.equals("")){
+                            d = new DamageSource("BanSibylNone").setDamageAllowedInCreativeMode();
+                            item.server.sendMessage(new TextComponentString(customLog));
+                        }else {
+                            Random random = new Random();
+                            int r = random.nextInt(6)+1;
+                            d = new DamageSource("BanSibyl"+r).setDamageAllowedInCreativeMode();
+                        }
                     }else {
                         //ソースを設定
-                        Random random = new Random();
-                        int r = random.nextInt(5)+1;
-                        d = new DamageSource("Sibyl"+r).setDamageAllowedInCreativeMode();
+                        String customLog = CustomObjects.Instance.GetCustomKilllog(item.getName());
+                        if(!customLog.equals("")){
+                            d = new DamageSource("SibylNone").setDamageAllowedInCreativeMode();
+                            item.server.sendMessage(new TextComponentString(customLog));
+                        }else {
+                            Random random = new Random();
+                            int r = random.nextInt(5)+1;
+                            d = new DamageSource("Sibyl"+r).setDamageAllowedInCreativeMode();
+                        }
                     }
                     //キル
                     item.attackEntityFrom(d,100000);

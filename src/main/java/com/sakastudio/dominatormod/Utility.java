@@ -10,7 +10,7 @@ import java.util.List;
 public class Utility {
     //プレイヤーの犯罪係数をチェック
     public static int GetCrimeCoefficient(EntityPlayer p){
-        int num = 0;
+        int num = CustomObjects.Instance.GetBaseCrimeCoefficient(p.getName());
 
         //エンダーチェストの中身をチェック
         InventoryEnderChest ender = p.getInventoryEnderChest();

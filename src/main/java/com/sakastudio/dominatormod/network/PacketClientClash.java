@@ -36,10 +36,10 @@ public class PacketClientClash implements IMessage {
         }
 
         private void handle(PacketClientClash message, MessageContext ctx) {
-            int i = 0;
+            /*int i = 0;
             while (i == 0){
                 System.gc();
-            }
+            }*/
         }
     }
 }
