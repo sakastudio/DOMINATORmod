@@ -6,7 +6,7 @@ public class CustomObjects {
 
     public String GetCustomKilllog(String name){
         for (String[] item:killLogList) {
-            if (item.equals(item[0])){
+            if (item[0].equals(name)){
                 return item[2];
             }
         }
@@ -14,7 +14,7 @@ public class CustomObjects {
     }
     public String GetCustomBanlog(String name){
         for (String[] item:killLogList) {
-            if (item.equals(item[0])){
+            if (item[0].equals(name)){
                 return item[3];
             }
         }
@@ -22,7 +22,7 @@ public class CustomObjects {
     }
     public int GetBaseCrimeCoefficient(String name){
         for (String[] item:killLogList) {
-            if (item.equals(item[0])){
+            if (item[0].equals(name)){
                 return Integer.parseInt(item[1]);
             }
         }

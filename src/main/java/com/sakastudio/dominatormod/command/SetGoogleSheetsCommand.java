@@ -16,7 +16,7 @@ public class SetGoogleSheetsCommand extends CommandBase {
 
     @Override
     public String getName() {
-        return "setGoogleSheets";
+        return "reloadGoogleSheets";
     }
 
     @Override
@@ -27,12 +27,7 @@ public class SetGoogleSheetsCommand extends CommandBase {
     @Override
     @SideOnly(Side.SERVER)
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        // 引数不足
-        if (args.length < 2) {
-            sender.sendMessage(new TextComponentString("/setGoogleSheets <sheetID> <sheetName>"));
-            return;
-        }
-        CustomObjects.Instance.killLogList = GoogleSheets.GetStringValue(args[0],args[1]);
+        CustomObjects.Instance.killLogList = GoogleSheets.GetStringValue();
 
     }
 }
