@@ -11,10 +11,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class GoogleSheets {
-    public static String[][] GetStringValue(){
+    public static String[][] GetStringValue(String apiKey){
         try {
             //GETでスプレッドシートから値を取得
-            URL url = new URL("https://sheets.googleapis.com/v4/spreadsheets/18VilJsHCBHfDW6LDC11MFOVodrY_yWeHkznyqLIZQ5I/values/List!A:D?key=AIzaSyB7YN9ZWPzNQntkYlW0YSStVcxoOjWla4U");
+            URL url = new URL("https://sheets.googleapis.com/v4/spreadsheets/18VilJsHCBHfDW6LDC11MFOVodrY_yWeHkznyqLIZQ5I/values/List!A:D?key="+apiKey);
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
             http.setRequestMethod("GET");
             http.connect();

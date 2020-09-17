@@ -14,9 +14,11 @@ public class SetGoogleSheetsCommand extends CommandBase {
 
     public SetGoogleSheetsCommand(){}
 
+    String cashAPIkey = "none";
+
     @Override
     public String getName() {
-        return "reloadGoogleSheets";
+        return "setGoogleSheets";
     }
 
     @Override
@@ -26,8 +28,17 @@ public class SetGoogleSheetsCommand extends CommandBase {
 
     @Override
     @SideOnly(Side.SERVER)
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        CustomObjects.Instance.killLogList = GoogleSheets.GetStringValue();
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {        // 引数不足
+        if (args.length < 1) {
+            if(cashAPIkey.equals("none")){
+                sender.sendMessage(new TextComponentString("キャッシュにAPIキーがありません。APIキーをセットしてください。"));
+                sender.sendMessage(new TextComponentString("/setGoogleSheets <apiKey>"));
+            }
+            CustomObjects.Instance.killLogList = GoogleSheets.GetStringValue(cashAPIkey);
+            return;
+        }
+        cashAPIkey = args[0];
+        CustomObjects.Instance.killLogList = GoogleSheets.GetStringValue(args[0]);
 
     }
 }
