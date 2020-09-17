@@ -18,7 +18,7 @@ public class GoogleSheets {
             http.connect();
 
             // レスポンスを1つのstringに
-            BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream(),"UTF-8"));
             String xml = "", line = "";
             Boolean isStart = false;
             while((line = reader.readLine()) != null){
