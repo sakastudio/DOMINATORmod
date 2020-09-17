@@ -2,7 +2,7 @@ package com.sakastudio.dominatormod;
 
 public class CustomObjects {
     public static CustomObjects Instance = new CustomObjects();
-    public String[][] killLogList;
+    public String[][] killLogList = new String[0][0];
 
     public String GetCustomKilllog(String name){
         for (String[] item:killLogList) {
