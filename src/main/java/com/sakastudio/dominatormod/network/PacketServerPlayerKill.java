@@ -63,6 +63,9 @@ public class PacketServerPlayerKill implements IMessage {
             List<EntityPlayerMP> list = ctx.getServerHandler().player.getServer().getPlayerList().getPlayers();
             int num = 0;
 
+            //設定するメッセージ
+            String chatMessage = "";
+
             //エンティティIDからターゲットエンティティを取得
             for (EntityPlayerMP item: list) {
                 //ターゲットのプレイヤーである
@@ -84,33 +87,19 @@ public class PacketServerPlayerKill implements IMessage {
                         PacketHandler.INSTANCE.sendTo(new PacketClientClash(),item);
 
                         //ソースを設定
-                        String customLog = CustomObjects.Instance.GetCustomBanlog(item.getName());
-                        if(!customLog.equals("")){
-                            d = new DamageSource("BanSibylNone").setDamageAllowedInCreativeMode();
-                            item.server.sendMessage(new TextComponentString(customLog));
-                        }else {
-                            Random random = new Random();
-                            int r = random.nextInt(6)+1;
-                            d = new DamageSource("BanSibyl"+r).setDamageAllowedInCreativeMode();
-                        }
+                        chatMessage = CustomObjects.Instance.GetCustomBanlog(item.getName());
+                        d = new DamageSource("BanSibylNone").setDamageAllowedInCreativeMode();
                     }else {
                         //ソースを設定
-                        String customLog = CustomObjects.Instance.GetCustomKilllog(item.getName());
-                        if(!customLog.equals("")){
-                            d = new DamageSource("SibylNone").setDamageAllowedInCreativeMode();
-                            item.server.sendMessage(new TextComponentString(customLog));
-                        }else {
-                            Random random = new Random();
-                            int r = random.nextInt(5)+1;
-                            d = new DamageSource("Sibyl"+r).setDamageAllowedInCreativeMode();
-                        }
+                        chatMessage = CustomObjects.Instance.GetCustomKilllog(item.getName());
+                        d = new DamageSource("SibylNone").setDamageAllowedInCreativeMode();
                     }
                     //キル
                     item.attackEntityFrom(d,100000);
-
-
-                    break;
                 }
+            }
+            for (EntityPlayerMP item: list) {
+                item.sendMessage(new TextComponentString(chatMessage));
             }
         }
     }
