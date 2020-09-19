@@ -39,6 +39,6 @@ public class SetGoogleSheetsCommand extends CommandBase {
         }
         cashAPIkey = args[0];
         CustomObjects.Instance.killLogList = GoogleSheets.GetStringValue(args[0]);
-
+        sender.sendMessage(new TextComponentString("取得完了"));
     }
 }
