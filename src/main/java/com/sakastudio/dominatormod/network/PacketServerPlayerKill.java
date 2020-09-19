@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryEnderChest;
@@ -14,12 +15,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import com.sakastudio.dominatormod.Utility;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -64,7 +67,7 @@ public class PacketServerPlayerKill implements IMessage {
             int num = 0;
 
             //設定するメッセージ
-            String chatMessage = "";
+            //String chatMessage = "";
 
             //エンティティIDからターゲットエンティティを取得
             for (EntityPlayerMP item: list) {
@@ -87,20 +90,32 @@ public class PacketServerPlayerKill implements IMessage {
                         PacketHandler.INSTANCE.sendTo(new PacketClientClash(),item);
 
                         //ソースを設定
-                        chatMessage = CustomObjects.Instance.GetCustomBanlog(item.getName());
-                        d = new DamageSource("BanSibylNone").setDamageAllowedInCreativeMode();
+                        String chatMessage = CustomObjects.Instance.GetCustomBanlog(item.getName());
+                        d = new DamageSource("BanSibylNone") {
+                            @Override public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
+                                if (!StringUtils.isBlank(chatMessage))
+                                    return new TextComponentString(chatMessage);
+                                return super.getDeathMessage(entityLivingBaseIn);
+                            }
+                        }.setDamageAllowedInCreativeMode();
                     }else {
                         //ソースを設定
-                        chatMessage = CustomObjects.Instance.GetCustomKilllog(item.getName());
-                        d = new DamageSource("SibylNone").setDamageAllowedInCreativeMode();
+                        String chatMessage = CustomObjects.Instance.GetCustomKilllog(item.getName());
+                        d = new DamageSource("SibylNone") {
+                            @Override public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
+                                if (!StringUtils.isBlank(chatMessage))
+                                    return new TextComponentString(chatMessage);
+                                return super.getDeathMessage(entityLivingBaseIn);
+                            }
+                        }.setDamageAllowedInCreativeMode();
                     }
                     //キル
                     item.attackEntityFrom(d,100000);
                 }
             }
-            for (EntityPlayerMP item: list) {
-                item.sendMessage(new TextComponentString(chatMessage));
-            }
+//            for (EntityPlayerMP item: list) {
+//                item.sendMessage(new TextComponentString(chatMessage));
+//            }
         }
     }
 }
