@@ -62,6 +62,7 @@ public class ItemDOMINATOR extends Item {
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 
+    @SideOnly(Side.CLIENT)
     public static void playSoundDominator() {
         Minecraft.getMinecraft().getSoundHandler().stopSounds();
         // Minecraft.getMinecraft().player.sendMessage(new TextComponentString("犯罪係数: " + crimeCoefficient));
