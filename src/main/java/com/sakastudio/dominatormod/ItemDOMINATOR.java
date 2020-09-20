@@ -1,39 +1,25 @@
 package com.sakastudio.dominatormod;
 
+import com.sakastudio.dominatormod.network.PacketHandler;
+import com.sakastudio.dominatormod.network.PacketServerPlayerKill;
+import com.sakastudio.dominatormod.network.PacketServerSendKey;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemMapBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import com.sakastudio.dominatormod.network.*;
-import scala.collection.parallel.ParIterableLike;
-
-import java.awt.*;
 
 public class ItemDOMINATOR extends Item {
 
-    static boolean isCechking = true;
-    public static int CrimeCoefficient;
-    static String cachePlayer;
-    static World cacheWorld;
-    static EntityPlayer cacheEntityPlayer;
-
-
+    public static int crimeCoefficient;
+    static EntityPlayer focusedPlayer;
 
     public ItemDOMINATOR() {
         super();
@@ -48,56 +34,45 @@ public class ItemDOMINATOR extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        cacheWorld = worldIn;
-        cacheEntityPlayer = playerIn;
-        EntityPlayer p = ClientProxy.Inctance().GetEntityPlayer();
-        if(p != null){
-            if(isCechking){
-                PacketHandler.INSTANCE.sendToServer(new PacketServerSendKey(p.getEntityId()));
-                cachePlayer = p.getName();
-                isCechking = false;
-                HUD.Instance.draw = !isCechking;
-            }else if(!isCechking && cachePlayer.equals(p.getName())){
-                if(CrimeCoefficient < 100){
-                    isCechking = true;
-                    //何もしない
-                }else if(CrimeCoefficient < 300){
-                    //パラライザー
-                    Minecraft.getMinecraft().getSoundHandler().stopSounds();
-                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),false));
-                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
-                }else{
-                    //エリミネーター
-                    Minecraft.getMinecraft().getSoundHandler().stopSounds();
-                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(p.getEntityId(),true));
-                    Minecraft.getMinecraft().player.sendChatMessage("/ban " + p.getName());
-                    worldIn.playSound(playerIn,playerIn.posX,playerIn.posY,playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS,1f,1f);
-                }
-                isCechking = true;
-                HUD.Instance.draw = !isCechking;
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        EntityPlayer newFocused = ClientProxy.Inctance().GetEntityPlayer();
+        if (focusedPlayer != null && !focusedPlayer.equals(newFocused))
+            focusedPlayer = null;
+
+        if (focusedPlayer == null) {
+            if (newFocused != null) {
+                PacketHandler.INSTANCE.sendToServer(new PacketServerSendKey(newFocused.getEntityId()));
+                focusedPlayer = newFocused;
             }
-        }else {
-            isCechking = true;
-            HUD.Instance.draw = !isCechking;
+        } else {
+            if (crimeCoefficient >= 100) {
+                Minecraft.getMinecraft().getSoundHandler().stopSounds();
+                if (crimeCoefficient < 300) {
+                    //パラライザー
+                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(focusedPlayer.getEntityId(), false));
+                } else {
+                    //エリミネーター
+                    PacketHandler.INSTANCE.sendToServer(new PacketServerPlayerKill(focusedPlayer.getEntityId(), true));
+                    Minecraft.getMinecraft().player.sendChatMessage("/ban " + focusedPlayer.getName());
+                }
+                worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, DOMINATORmod.Shot, SoundCategory.PLAYERS, 1f, 1f);
+            }
+            focusedPlayer = null;
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 
-    public static void PlaySoundDominator(){
+    @SideOnly(Side.CLIENT)
+    public static void playSoundDominator() {
         Minecraft.getMinecraft().getSoundHandler().stopSounds();
-        Minecraft.getMinecraft().player.sendMessage(new TextComponentString("犯罪係数: " + CrimeCoefficient));
-        if(CrimeCoefficient < 100){
-            isCechking = true;
-            //何もしない
-            cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Under100, SoundCategory.PLAYERS,1f,1f);
-        }else if(CrimeCoefficient < 300){
-            //パラライザー
-            cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Over100, SoundCategory.PLAYERS,1f,1f);
-        }else{
-            //エリミネーター
-            cacheWorld.playSound(cacheEntityPlayer,cacheEntityPlayer.posX,cacheEntityPlayer.posY,cacheEntityPlayer.posZ, DOMINATORmod.Over300, SoundCategory.PLAYERS,1f,1f);
-        }
+        // Minecraft.getMinecraft().player.sendMessage(new TextComponentString("犯罪係数: " + crimeCoefficient));
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        player.world.playSound(
+                player,
+                player.posX, player.posY, player.posZ,
+                crimeCoefficient < 100 ? DOMINATORmod.Under100 : crimeCoefficient < 300 ? DOMINATORmod.Over100 : DOMINATORmod.Over300,
+                SoundCategory.PLAYERS,
+                1f, 1f
+        );
     }
 }
